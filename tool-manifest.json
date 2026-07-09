@@ -1,0 +1,259 @@
+{
+  "project": {
+    "name": "Elyora MCP",
+    "version": "1.0.0",
+    "description": "MCP server for the Elyora tourism project."
+  },
+  "tools": [
+    {
+      "name": "get_project_overview",
+      "title": "Project Overview",
+      "description": "Returns a general overview of the Elyora project.",
+      "category": "Project",
+      "resource": "resource://project/overview",
+      "prompt": "explain_project",
+      "permissions": "read",
+      "input": {},
+      "output": {
+        "name": "string",
+        "description": "string",
+        "technologies": ["string"],
+        "modules": ["string"]
+      },
+      "example": {
+        "input": {},
+        "output": {
+          "name": "Elyora"
+        }
+      }
+    },
+
+    {
+      "name": "get_architecture",
+      "title": "Project Architecture",
+      "description": "Returns the global architecture of the project.",
+      "category": "Architecture",
+      "resource": "resource://project/architecture",
+      "prompt": "explain_architecture",
+      "permissions": "read",
+      "input": {},
+      "output": {
+        "layers": ["string"],
+        "components": ["string"]
+      },
+      "example": {
+        "input": {},
+        "output": {
+          "layers": [
+            "Presentation",
+            "Business",
+            "Data"
+          ]
+        }
+      }
+    },
+
+    {
+      "name": "list_use_cases",
+      "title": "List Use Cases",
+      "description": "Returns all available use cases.",
+      "category": "Use Cases",
+      "resource": "resource://project/usecases",
+      "prompt": "list_usecases",
+      "permissions": "read",
+      "input": {},
+      "output": {
+        "use_cases": ["string"]
+      },
+      "example": {
+        "input": {},
+        "output": {
+          "use_cases": [
+            "Login",
+            "Register",
+            "Reservation"
+          ]
+        }
+      }
+    },
+
+    {
+      "name": "get_use_case",
+      "title": "Get Use Case",
+      "description": "Returns detailed information about a specific use case.",
+      "category": "Use Cases",
+      "resource": "resource://project/usecases",
+      "prompt": "explain_usecase",
+      "permissions": "read",
+      "input": {
+        "name": "string"
+      },
+      "output": {
+        "title": "string",
+        "actor": "string",
+        "description": "string",
+        "scenario": ["string"]
+      },
+      "example": {
+        "input": {
+          "name": "Reservation"
+        },
+        "output": {
+          "title": "Reservation"
+        }
+      }
+    },
+
+    {
+      "name": "list_database_tables",
+      "title": "List Database Tables",
+      "description": "Returns all database tables.",
+      "category": "Database",
+      "resource": "resource://project/database",
+      "prompt": "database_overview",
+      "permissions": "read",
+      "input": {},
+      "output": {
+        "tables": ["string"]
+      },
+      "example": {
+        "input": {},
+        "output": {
+          "tables": [
+            "Touriste",
+            "Reservation",
+            "Paiement"
+          ]
+        }
+      }
+    },
+
+    {
+      "name": "get_database_table",
+      "title": "Database Table",
+      "description": "Returns detailed information about a database table.",
+      "category": "Database",
+      "resource": "resource://project/database",
+      "prompt": "explain_table",
+      "permissions": "read",
+      "input": {
+        "table": "string"
+      },
+      "output": {
+        "table": "string",
+        "columns": ["string"],
+        "primary_key": "string",
+        "foreign_keys": ["string"]
+      },
+      "example": {
+        "input": {
+          "table": "Reservation"
+        },
+        "output": {
+          "table": "Reservation"
+        }
+      }
+    },
+
+    {
+      "name": "list_modules",
+      "title": "List Project Modules",
+      "description": "Returns all application modules.",
+      "category": "Modules",
+      "resource": "resource://project/modules",
+      "prompt": "list_modules",
+      "permissions": "read",
+      "input": {},
+      "output": {
+        "modules": [
+          "PHP",
+          "Java",
+          "C++"
+        ]
+      },
+      "example": {
+        "input": {},
+        "output": {
+          "modules": [
+            "PHP",
+            "Java",
+            "C++"
+          ]
+        }
+      }
+    },
+
+    {
+      "name": "get_module_details",
+      "title": "Module Details",
+      "description": "Returns detailed information about one application module.",
+      "category": "Modules",
+      "resource": "resource://project/modules",
+      "prompt": "explain_module",
+      "permissions": "read",
+      "input": {
+        "module": "string"
+      },
+      "output": {
+        "name": "string",
+        "description": "string",
+        "files": ["string"]
+      },
+      "example": {
+        "input": {
+          "module": "PHP"
+        },
+        "output": {
+          "name": "PHP"
+        }
+      }
+    },
+
+    {
+      "name": "search_resources",
+      "title": "Search Resources",
+      "description": "Searches information across all project resources.",
+      "category": "Search",
+      "resource": "resource://*",
+      "prompt": "search_resource",
+      "permissions": "read",
+      "input": {
+        "query": "string"
+      },
+      "output": {
+        "matches": ["string"]
+      },
+      "example": {
+        "input": {
+          "query": "hotel"
+        },
+        "output": {
+          "matches": [
+            "Hotel Reservation",
+            "Hotel Table"
+          ]
+        }
+      }
+    },
+
+    {
+      "name": "project_summary",
+      "title": "Project Summary",
+      "description": "Returns a concise summary of the Elyora project.",
+      "category": "Project",
+      "resource": "resource://project/overview",
+      "prompt": "project_summary",
+      "permissions": "read",
+      "input": {},
+      "output": {
+        "summary": "string"
+      },
+      "example": {
+        "input": {},
+        "output": {
+          "summary": "Elyora is a smart tourism management platform."
+        }
+      }
+    }
+  ]
+}
