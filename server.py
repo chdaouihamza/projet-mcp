@@ -6,7 +6,7 @@ import os
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 OWNER = "chdaouihamza"
-REPO = "projet-mcp"  # <-- VÉRIFIE ce nom sur GitHub, ajuste si besoin
+REPO = "projet-mcp"
 HEADERS = {
     "Authorization": f"Bearer {GITHUB_TOKEN}",
     "Accept": "application/vnd.github+json"
