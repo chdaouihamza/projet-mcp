@@ -3,6 +3,7 @@ from mcp.server.fastmcp import FastMCP
 import httpx
 import requests
 import os
+import base64
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
 OWNER = "chdaouihamza"
@@ -13,6 +14,54 @@ HEADERS = {
 }
 
 mcp = FastMCP("Elyora MCP")
+RESOURCE_CACHE: dict[str, str] = {}
+
+def fetch_github_doc(filepath: str) -> str:
+    """Télécharge le contenu brut d'un fichier Markdown depuis le dépôt GitHub."""
+    if filepath in RESOURCE_CACHE:
+        return RESOURCE_CACHE[filepath]
+
+    url = f"https://api.github.com/repos/{OWNER}/{REPO}/contents/{filepath}"
+    response = requests.get(url, headers=HEADERS)
+
+    if response.status_code != 200:
+        return f"# Erreur\nImpossible de récupérer `{filepath}` : {response.json().get('message', 'erreur inconnue')}"
+
+    data = response.json()
+    content = base64.b64decode(data["content"]).decode("utf-8")
+
+    RESOURCE_CACHE[filepath] = content
+    return content
+
+
+@mcp.resource("elyora://docs/manifest", mime_type="text/markdown")
+def lire_manifeste() -> str:
+    """Ressource : Fournit le contexte global, l'architecture générale et le but du projet Elyora."""
+    return fetch_github_doc("ressources/manifest.md")
+
+
+@mcp.resource("elyora://docs/architecture", mime_type="text/markdown")
+def lire_architecture() -> str:
+    """Ressource : Fournit les règles strictes de codage (PHP, Java, C++) et de sécurité (PDO, Hash)."""
+    return fetch_github_doc("ressources/architecture.md")
+
+
+@mcp.resource("elyora://docs/database", mime_type="text/markdown")
+def lire_database() -> str:
+    """Ressource : Fournit le dictionnaire de données SQL complet et les contraintes (ON DELETE CASCADE)."""
+    return fetch_github_doc("ressources/database.md")
+
+
+@mcp.resource("elyora://docs/business-logic", mime_type="text/markdown")
+def lire_business_logic() -> str:
+    """Ressource : Fournit les algorithmes métier (calcul des prix, taxes, règles de transport et budget)."""
+    return fetch_github_doc("ressources/business_logic.md")
+
+
+@mcp.resource("elyora://docs/ui-guidelines", mime_type="text/markdown")
+def lire_ui_guidelines() -> str:
+    """Ressource : Fournit la charte graphique (CSS, couleurs primaires, bordures) et les règles JS."""
+    return fetch_github_doc("ressources/ui_guidelines.md")
 
 
 @mcp.tool()
