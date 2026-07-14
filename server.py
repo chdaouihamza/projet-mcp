@@ -11,8 +11,8 @@ import requests
 from mcp.server.fastmcp import FastMCP
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-OWNER = os.getenv("GITHUB_OWNER", "chdaouihamza")
-REPO = os.getenv("GITHUB_REPO", "projet_synthese")
+OWNER = os.getenv("GITHUB_OWNER", "ironkik123")
+REPO = os.getenv("GITHUB_REPO", "PFA")
 API_URL = f"https://api.github.com/repos/{OWNER}/{REPO}"
 TIMEOUT_SECONDS = 20
 RESOURCE_CACHE: dict[str, str] = {}
@@ -121,6 +121,43 @@ def lire_ui_guidelines() -> str:
 @mcp.resource("elyora://prompts/pr-health-criteria", mime_type="text/markdown")
 def lire_criteres_pr_health() -> str:
     return fetch_github_doc("prompts/pr_health_criteria.md")
+
+
+# --- Ressources SmartStage (à la suite des ressources Elyora) ---
+
+@mcp.resource("smartstage://docs/readme", mime_type="text/markdown")
+def lire_smartstage_readme() -> str:
+    return fetch_github_doc("smartstage-docs/README.md")
+
+
+@mcp.resource("smartstage://docs/architecture", mime_type="text/markdown")
+def lire_smartstage_architecture() -> str:
+    return fetch_github_doc("smartstage-docs/ARCHITECTURE.md")
+
+
+@mcp.resource("smartstage://docs/roles", mime_type="text/markdown")
+def lire_smartstage_roles() -> str:
+    return fetch_github_doc("smartstage-docs/ROLES_UTILISATEURS.md")
+
+
+@mcp.resource("smartstage://docs/modules", mime_type="text/markdown")
+def lire_smartstage_modules() -> str:
+    return fetch_github_doc("smartstage-docs/MODULES_FONCTIONNELS.md")
+
+
+@mcp.resource("smartstage://docs/modele-donnees", mime_type="text/markdown")
+def lire_smartstage_modele_donnees() -> str:
+    return fetch_github_doc("smartstage-docs/MODELE_DONNEES.md")
+
+
+@mcp.resource("smartstage://docs/api-endpoints", mime_type="text/markdown")
+def lire_smartstage_api_endpoints() -> str:
+    return fetch_github_doc("smartstage-docs/API_ENDPOINTS.md")
+
+
+@mcp.resource("smartstage://docs/planning", mime_type="text/markdown")
+def lire_smartstage_planning() -> str:
+    return fetch_github_doc("smartstage-docs/PLANNING_LIVRABLES.md")
 
 
 @mcp.tool()
